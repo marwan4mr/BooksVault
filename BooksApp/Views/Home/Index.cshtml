@@ -1,6 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h1> @ViewData["Message"] </h1>
+<h1> @ViewBag.MessageViewBag</h1>
+<h1> @TempData["MessageTempData"]</h1>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
