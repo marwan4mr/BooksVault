@@ -1,0 +1,23 @@
+name: Mirror Azure DevOps to GitHub
+
+on:
+  workflow_dispatch:    # Manual trigger button in GitHub UI
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Git
+      run: |
+        git config --global user.name "Mirror Bot"
+        git config --global user.email "mirror@bot.com"
+
+    - name: Clone Azure DevOps repo (mirror)
+      run: |
+        git clone --mirror "${{ secrets.AZURE_REPO }}" azure-repo
+        cd azure-repo
+        git remote set-url --push origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/marwan4mr/BooksVault.git"
+        git push --mirror
